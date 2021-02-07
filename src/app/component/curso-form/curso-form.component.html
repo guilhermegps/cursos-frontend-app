@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Descrição" formControlName="descricao">
+                        <input matInput [(ngModel)]="curso.descricao" placeholder="Descrição" formControlName="descricao">
                         <mat-error *ngIf="cursoForm.controls['descricao'].hasError('required')">
                             Categoria é <strong>Obrigatório</strong>
                         </mat-error>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <mat-select placeholder="Categoria" formControlName="categoria">
+                        <mat-select [(ngModel)]="curso.codCategoria" placeholder="Categoria" formControlName="categoria">
                             <mat-option *ngFor="let categoria of categorias" [value]="categoria.codigo">
                                 {{ categoria.descricao }}
                             </mat-option>
@@ -31,8 +31,8 @@
                     <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Período do curso</mat-label>
                         <mat-date-range-input [rangePicker]="rangePicker">
-                            <input matStartDate placeholder="Data Inicio" formControlName="dataInicio">
-                            <input matEndDate placeholder="Data Fim" formControlName="dataFim">
+                            <input matStartDate placeholder="Data Inicio" [(ngModel)]="curso.dtInicio" formControlName="dtInicio">
+                            <input matEndDate placeholder="Data Fim" [(ngModel)]="curso.dtFim" formControlName="dtFim">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
                         <mat-date-range-picker #rangePicker>
@@ -41,10 +41,10 @@
                                 <button mat-raised-button color="primary" matDateRangePickerApply>Aplicar</button>
                             </mat-date-range-picker-actions>
                         </mat-date-range-picker>
-                        <mat-error *ngIf="cursoForm.controls['dataInicio'].hasError('required')">
+                        <mat-error *ngIf="cursoForm.controls['dtInicio'].hasError('required')">
                             A data de inicio é <strong>Obrigatório</strong>
                         </mat-error>
-                        <mat-error *ngIf="cursoForm.controls['dataFim'].hasError('required')">
+                        <mat-error *ngIf="cursoForm.controls['dtFim'].hasError('required')">
                             A data de fim é <strong>Obrigatório</strong>
                         </mat-error>
                     </mat-form-field>
@@ -53,8 +53,7 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input matInput #qtdAlunos maxlength="5" placeholder="Quantidade de Alunos" type="number" formControlName="qtdAlunos">
-                        <mat-hint align="end">{{qtdAlunos.value.length}} / 5</mat-hint>
+                        <input matInput type="number" [(ngModel)]="curso.qtdAlunos" placeholder="Quantidade de Alunos" formControlName="qtdAlunos">
                     </mat-form-field>
                 </div>
             </div>

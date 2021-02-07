@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CursoService } from 'src/app/service/curso.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { Categoria } from 'src/app/model/categoria';
+import { Curso } from 'src/app/model/curso';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-curso-form',
@@ -14,11 +16,14 @@ import { Categoria } from 'src/app/model/categoria';
   ]
 })
 export class CursoFormComponent {
+  @Input() curso: Curso;
+
   cursoForm = this.fb.group({
+    qtdAlunos: [null],
     descricao: [null, Validators.required],
     categoria: [null, Validators.required],
-    dataInicio: [null, Validators.required],
-    dataFim: [null, Validators.required],
+    dtInicio: [null, Validators.required],
+    dtFim: [null, Validators.required],
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(1), Validators.maxLength(5)])
     ]
@@ -28,19 +33,29 @@ export class CursoFormComponent {
 
   categorias: Categoria[] = new Array();
 
+  constructor(
+    private fb: FormBuilder,
+    private cursoService: CursoService,
+    private categoriaService: CategoriaService
+  ) {
+    this.curso = new Curso();
+  }
+
   ngOnInit() {
     this.categoriaService.findAll().subscribe((resp)=>{
       this.categorias = resp;
     });
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private cursoService: CursoService,
-    private categoriaService: CategoriaService
-  ) {}
-
   onSubmit() {
-    alert('Obrigado!');
+    this.cursoService.save(this.curso).subscribe((result) =>{
+      alert("Sucesso!");
+    }, (error: HttpErrorResponse) => {
+      console.error(error)
+      if(error.error!=null)
+        alert(error.error);
+      else 
+        alert(error.message);
+    });
   }
 }
