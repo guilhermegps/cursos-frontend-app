@@ -12,26 +12,26 @@ export class CategoriaService {
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.apiUrl + 'categoria/';
+    this.url = `${environment.apiUrl}categoria/`;
   }
 
   public findAll(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.url + "listar/todos");
+    return this.http.get<Categoria[]>(`${this.url}listar/todos`);
   }
 
   public findByCodigo(codCategoria: number): Observable<Categoria> {
-    return this.http.get<Categoria>(this.url + "buscar/" + codCategoria);
+    return this.http.get<Categoria>(`${this.url}buscar/${codCategoria}`);
   }
 
   public save(categoria: Categoria) {
-    return this.http.post(this.url + "registrar", categoria);
+    return this.http.post(`${this.url}registrar`, categoria);
   }
 
   public update(categoria: Categoria) {
-    return this.http.put(this.url + "atualizar", categoria);
+    return this.http.put(`${this.url}atualizar`, categoria);
   }
 
   public delete(codCategoria: number) {
-    return this.http.delete(this.url + "remover/" + codCategoria);
+    return this.http.delete(`${this.url}remover/${codCategoria}`);
   }
 }

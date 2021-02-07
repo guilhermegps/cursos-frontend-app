@@ -60,15 +60,21 @@ export class CursoFormComponent {
   }
 
   onSubmit() {
-    this.cursoService.save(this.curso).subscribe((result) =>{
-      alert("Sucesso!");
-      this.voltar();
-    }, (error: HttpErrorResponse) => {
-      console.error(error)
-      if(error.error!=null)
-        alert(error.error);
-      else 
-        alert(error.message);
-    });
+    const erros = this.cursoForm.errors;
+
+    if(!this.cursoForm.invalid){
+      this.cursoService.save(this.curso).subscribe((result) =>{
+        alert("Sucesso!");
+        this.voltar();
+      }, (error: HttpErrorResponse) => {
+        console.error(error)
+        if(error.error!=null)
+          alert(error.error);
+        else 
+          alert(error.message);
+      });
+    } else{
+      alert("Preencha os campos obrigatórios");
+    }
   }
 }

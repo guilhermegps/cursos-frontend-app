@@ -12,11 +12,11 @@ export class CursoService {
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.apiUrl + 'curso/';
+    this.url = `${environment.apiUrl}curso/`;
   }
 
   public findAll(): Observable<Curso[]> {
-    return this.http.get<Curso[]>(this.url + "listar/todos");
+    return this.http.get<Curso[]>(`${this.url}listar/todos`);
   }
 
   public findByCodigo(codCurso: number): Observable<Curso> {
@@ -35,6 +35,6 @@ export class CursoService {
   }
 
   public delete(codCurso: number) {
-    return this.http.delete(this.url + "remover/" + codCurso);
+    return this.http.delete(`${this.url}remover/${codCurso}`);
   }
 }
