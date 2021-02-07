@@ -24,10 +24,7 @@ export class CursoFormComponent {
     descricao: [null, Validators.required],
     categoria: [null, Validators.required],
     dtInicio: [null, Validators.required],
-    dtFim: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(1), Validators.maxLength(5)])
-    ]
+    dtFim: [null, Validators.required]
   });
 
   hasUnitNumber = false;

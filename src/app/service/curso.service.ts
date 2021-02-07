@@ -20,14 +20,18 @@ export class CursoService {
   }
 
   public findByCodigo(codCurso: number): Observable<Curso> {
-    return this.http.get<Curso>(this.url + "buscar/" + codCurso);
+    return this.http.get<Curso>(`${this.url}buscar/${codCurso}`);
+  }
+
+  public listForDescricao(descricao: string): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.url}listar/porDescricao/${descricao}`);
   }
 
   public save(curso: Curso) {
     if(curso.codigo==null)
-      return this.http.post(this.url + "registrar", curso);
+      return this.http.post(`${this.url}registrar`, curso);
     else
-      return this.http.put(this.url + "atualizar", curso);
+      return this.http.put(`${this.url}atualizar`, curso);
   }
 
   public delete(codCurso: number) {

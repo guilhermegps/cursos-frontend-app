@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Curso } from 'src/app/model/curso';
 import { CursoService } from 'src/app/service/curso.service';
-import { CategoriaService } from 'src/app/service/categoria.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-curso-table',
@@ -14,10 +14,14 @@ export class CursoTableComponent implements OnInit {
   displayedColumns: string[] = ['codigo', 'descricao', 'dtFim', 'dtInicio', 'qtdAlunos', 'acoes'];
   dataSource: Curso[] = new Array();
 
+  searchForm = this.fb.group({
+    descricao: [null]
+  });
+
   constructor(
     private router: Router,
     private cursoService: CursoService,
-    private categoriaService: CategoriaService) { 
+    private fb: FormBuilder) { 
       
   }
 
@@ -46,6 +50,23 @@ export class CursoTableComponent implements OnInit {
     this.cursoService.findAll().subscribe((resp)=>{
       this.dataSource = resp;
     });
+  }
+
+  search: string = "";
+  onSubmit() {
+    if(this.search!=""){
+      this.cursoService.listForDescricao(this.search).subscribe((resp)=>{
+        this.dataSource = resp;
+      }, (error: HttpErrorResponse) => {
+        console.error(error)
+        if(error.error!=null)
+          alert(error.error);
+        else 
+          alert(error.message);
+      });
+    } else{
+      this.ngOnInit();
+    }
   }
 
 }
