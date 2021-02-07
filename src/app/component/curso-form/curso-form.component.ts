@@ -6,7 +6,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 import { Categoria } from 'src/app/model/categoria';
 import { Curso } from 'src/app/model/curso';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-curso-form',
@@ -35,6 +35,7 @@ export class CursoFormComponent {
   categorias: Categoria[] = new Array();
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private cursoService: CursoService,
@@ -48,6 +49,14 @@ export class CursoFormComponent {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const codCurso: number = params['codigo'];
+      if(codCurso!=null)
+        this.cursoService.findByCodigo(codCurso).subscribe((curso)=>{
+          this.curso = curso;
+        });
+    });
+
     this.categoriaService.findAll().subscribe((resp)=>{
       this.categorias = resp;
     });

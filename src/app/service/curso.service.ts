@@ -24,11 +24,10 @@ export class CursoService {
   }
 
   public save(curso: Curso) {
-    return this.http.post(this.url + "registrar", curso);
-  }
-
-  public update(curso: Curso) {
-    return this.http.put(this.url + "atualizar", curso);
+    if(curso.codigo==null)
+      return this.http.post(this.url + "registrar", curso);
+    else
+      return this.http.put(this.url + "atualizar", curso);
   }
 
   public delete(codCurso: number) {

@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CursoFormComponent } from './component/curso-form/curso-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CursoTableComponent } from './component/curso-table/curso-table.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CursoTableComponent } from './component/curso-table/curso-table.compone
     MatSliderModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
