@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./curso-table.component.css']
 })
 export class CursoTableComponent implements OnInit {
-  displayedColumns: string[] = ['codigo', 'descricao', 'dtInicio', 'dtFim', 'qtdAlunos', 'acoes'];
+  displayedColumns: string[] = ['codigo', 'descricao', 'dtInicio', 'dtFim', 'qtdAlunos', 'descCategoria', 'acoes'];
   dataSource: Curso[] = new Array();
 
   searchForm = this.fb.group({

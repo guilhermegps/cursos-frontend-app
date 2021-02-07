@@ -6,6 +6,7 @@ export class Curso extends EntidadeBase {
     public dtInicio!: Date;
     public dtFim!: Date;
     public qtdAlunos!: number;
+    public descCategoria!: string;
     public codCategoria!: number;
 
 }
