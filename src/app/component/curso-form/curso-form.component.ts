@@ -6,6 +6,7 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 import { Categoria } from 'src/app/model/categoria';
 import { Curso } from 'src/app/model/curso';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-curso-form',
@@ -34,11 +35,16 @@ export class CursoFormComponent {
   categorias: Categoria[] = new Array();
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private cursoService: CursoService,
     private categoriaService: CategoriaService
   ) {
     this.curso = new Curso();
+  }
+
+  voltar(){
+    this.router.navigate(['']);
   }
 
   ngOnInit() {
@@ -50,6 +56,7 @@ export class CursoFormComponent {
   onSubmit() {
     this.cursoService.save(this.curso).subscribe((result) =>{
       alert("Sucesso!");
+      this.voltar();
     }, (error: HttpErrorResponse) => {
       console.error(error)
       if(error.error!=null)

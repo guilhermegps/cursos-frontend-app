@@ -18,11 +18,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CursoFormComponent } from './component/curso-form/curso-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CursoTableComponent } from './component/curso-table/curso-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CursoFormComponent
+    CursoFormComponent,
+    CursoTableComponent
   ],
   imports: [
     BrowserModule,
