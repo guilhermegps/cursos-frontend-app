@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CursoService } from 'src/app/service/curso.service';
+import { CategoriaService } from 'src/app/service/categoria.service';
+import { Categoria } from 'src/app/model/categoria';
 
 @Component({
   selector: 'app-curso-form',
@@ -23,14 +26,19 @@ export class CursoFormComponent {
 
   hasUnitNumber = false;
 
-  categorias = [
-    {descricao: 'Comportamental', codigo: 1},
-    {descricao: 'Programação', codigo: 2},
-    {descricao: 'Qualidade', codigo: 3},
-    {descricao: 'Processos', codigo: 4}
-  ];
+  categorias: Categoria[] = new Array();
 
-  constructor(private fb: FormBuilder) {}
+  ngOnInit() {
+    this.categoriaService.findAll().subscribe((resp)=>{
+      this.categorias = resp;
+    });
+  }
+
+  constructor(
+    private fb: FormBuilder,
+    private cursoService: CursoService,
+    private categoriaService: CategoriaService
+  ) {}
 
   onSubmit() {
     alert('Obrigado!');
